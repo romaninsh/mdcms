@@ -11,6 +11,10 @@
             "email": "romans@agiletoolkit.org"
         }
     ],
+    "require": {
+        "dflydev/markdown": "dev-master"
+        "php": ">=5.3"
+    },
     "autoload": {
         "psr-0": { "romaninsh\\mdcms": "lib" }
     }
