@@ -13,8 +13,7 @@ class Controller extends \AbstractController {
 
         $page = $this->api->page_object = $this->target->add('Page');
 
-        $parser = new \dflydev\markdown\MarkdownExtraParser();
-        $html = $parser->transformMarkdown(file_get_contents($path));
+        $html = Parsedown::instance()->parse(file_get_contents($path));
 
         $page->template->loadTemplateFromString($html);
 
