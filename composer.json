@@ -11,6 +11,11 @@
             "email": "romans@agiletoolkit.org"
         }
     ],
+    "source": {
+        "url": "https://github.com/romaninsh/mdcms.git",
+        "type": "git",
+        "reference": "origin/master"
+    },
     "require": {
         "php": ">=5.3",
         "erusev/parsedown": "dev-master"
