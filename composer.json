@@ -20,6 +20,12 @@
         "php": ">=5.3",
         "erusev/parsedown": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/erusev/parsedown.git"
+        }
+    ],
     "autoload": {
         "psr-0": { "romaninsh\\mdcms": "lib" }
     }
