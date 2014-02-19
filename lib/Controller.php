@@ -4,21 +4,69 @@ namespace romaninsh\mdcms;
 class Controller extends \AbstractController {
     public $target=null;
     public $callback=null;
+
+    public $page_class='romaninsh/mdcms/Page';
+
+    function addLocation() {
+        $this->api->pathfinder->base_location->defineContents(array(
+            'md_content'=>'content',
+        ));
+    }
+    function tryInitPage() {
+        // Attempt to load content file for respective page
+        $content = $this->get($this->api->page);
+        if(is_null($content))return;
+
+
+        if(!$this->target){
+            $this->target=$this->api->layout ?: $this->api;
+        }
+
+        $page = $this->api->page_object = $this->target->add($this->page_class);
+        $page->template->loadTemplateFromString($content['rendered']);
+
+        throw $this->exception('','Exception_StopInit');
+    }
+
+
+    function registerTemplateTags() {
+
+        $self=$this;
+
+        $this->api->addHook('set-tags',function($a,$t)use($self){
+            $t->eachTag('markdown',array($self,'parse'));
+            $t->eachTag('markdown_include',array($self,'parseTemplate'));
+        });
+    }
+
+    /**
+     * Provided with markdown - parse it and return HTML
+     */
+    function parse($markdown){
+        return \Parsedown::instance()->parse($markdown);
+    }
+
+    function parseTemplate($template){
+        return $this->get($template)->get('rendered');
+    }
+
+    function get($template){
+        if($this->model && $this->model->tryLoadBy('name',$template.'.md')->loaded()){
+            return $this->model;
+        }
+    }
+
     function init() {
         parent::init();
 
-        $path = $this->api->locatePath('content',str_replace('_','/',$this->api->page).'.md');
+        $this->addLocation();
 
-        if(!$this->target)$this->target=$this->api;
+        $this->registerTemplateTags();
 
-        $page = $this->api->page_object = $this->target->add('Page');
 
-        $html = \Parsedown::instance()->parse(file_get_contents($path));
+        $m=$this->setModel('romaninsh/mdcms/Model');
+        $m->setSource('PathFinder','md_content');
 
-        $page->template->loadTemplateFromString($html);
-
-        if($this->callback)call_user_func($this->callback,$page);
-
-        throw $this->exception('','Exception_StopInit');
+        $this->tryInitPage();
     }
 }
