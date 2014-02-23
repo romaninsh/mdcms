@@ -14,7 +14,7 @@ class Controller extends \AbstractController {
     }
     function tryInitPage() {
         // Attempt to load content file for respective page
-        $content = $this->get($this->api->page);
+        $content = $this->get(str_replace('_','/',$this->api->page));
         if(is_null($content))return;
 
 
