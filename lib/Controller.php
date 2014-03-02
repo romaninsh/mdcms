@@ -5,6 +5,8 @@ class Controller extends \AbstractController {
     public $target=null;
     public $callback=null;
 
+    public $init=true;
+
     public $page_class='romaninsh/mdcms/Page';
 
     function addLocation() {
@@ -59,14 +61,16 @@ class Controller extends \AbstractController {
     function init() {
         parent::init();
 
+
         $this->addLocation();
 
-        $this->registerTemplateTags();
+        if($this->init){
+            $this->registerTemplateTags();
 
+            $m=$this->setModel('romaninsh/mdcms/Model');
+            $m->setSource('PathFinder','md_content');
 
-        $m=$this->setModel('romaninsh/mdcms/Model');
-        $m->setSource('PathFinder','md_content');
-
-        $this->tryInitPage();
+            $this->tryInitPage();
+        }
     }
 }
