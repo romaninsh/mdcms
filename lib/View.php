@@ -4,8 +4,8 @@ class View extends \View {
     function set($file){
         $m=$this->setModel('romaninsh/mdcms/Model');
         $m->setSource('PathFinder','md_content');
-        $this->model->tryLoadBy('name',$file.'.md');
+        $this->model->loadBy('name',$file.'.md');
 
-        parent::setHTML($this->model['rendered']);
+        $this->template->loadTemplateFromString($this->model['rendered']);
     }
 }
