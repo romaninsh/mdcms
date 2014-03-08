@@ -16,8 +16,10 @@ class Controller extends \AbstractController {
     }
     function tryInitPage() {
         // Attempt to load content file for respective page
+        /*
         $content = $this->get(str_replace('_','/',$this->api->page));
         if(is_null($content))return;
+         */
 
 
         if(!$this->target){
@@ -25,7 +27,7 @@ class Controller extends \AbstractController {
         }
 
         $page = $this->api->page_object = $this->target->add($this->page_class);
-        $page->template->loadTemplateFromString($content['rendered']);
+        //$page->template->loadTemplateFromString($content['rendered']);
 
         throw $this->exception('','Exception_StopInit');
     }

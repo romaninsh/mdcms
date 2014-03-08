@@ -9,4 +9,7 @@ class Page extends \Page {
         $v->set($page);
         $this->api->setTags($v->template);
     }
+
+    function subPageHandler($p) {
+    }
 }
