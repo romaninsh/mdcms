@@ -16,8 +16,9 @@ class Controller extends \AbstractController {
     }
     function tryInitPage() {
         // Attempt to load content file for respective page
-        /*
         $content = $this->get(str_replace('_','/',$this->api->page));
+        if(!$content)return;
+        /*
         if(is_null($content))return;
          */
 
@@ -29,7 +30,7 @@ class Controller extends \AbstractController {
         $page = $this->api->page_object = $this->target->add($this->page_class);
         //$page->template->loadTemplateFromString($content['rendered']);
 
-        throw $this->exception('','Exception_StopInit');
+//        throw $this->exception('','Exception_StopInit');
     }
 
 
@@ -67,12 +68,15 @@ class Controller extends \AbstractController {
         $this->addLocation();
 
         if($this->init){
-            $this->registerTemplateTags();
+            try {
+                $this->registerTemplateTags();
 
-            $m=$this->setModel('romaninsh/mdcms/Model');
-            $m->setSource('PathFinder','md_content');
+                $m=$this->setModel('romaninsh/mdcms/Model');
+                $m->setSource('PathFinder','md_content');
 
-            $this->tryInitPage();
+                $this->tryInitPage();
+            }catch(Exception $e){
+            }
         }
     }
 }
