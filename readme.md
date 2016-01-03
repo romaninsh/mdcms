@@ -27,6 +27,18 @@ This plugin can be integrated in various ways. The integration above is a full i
  - `{markdown} .. {/}` - Allows you to embed markdown inside regular ATK template
  - `{markdown_include}disclaimer{}` - Include markdown file. I recommend to start includes with underscore, this way they can't be accessed directly.
 
+Mapping images and URLs
+--
+
+To link to a ATK page using url() wrapper, use {page}my-page{/} inside
+your Markdown. This will be replaced automatically with a proper URL.
+
+To include a link to a public image use ![image], the URL will be
+converted using locateURL('public', $url) automatically. I recommend
+that you place your images inside content/images and symlink it into
+public/images. Using ![image](images/myimage.png) will properly work
+inside your text editor and on your site.
+
  
 Caching
 --
