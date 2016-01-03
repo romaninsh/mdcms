@@ -4,7 +4,7 @@
     "description": "Markdown CMS for Agile Toolkit",
     "homepage": "http://github.com/romaninsh/mdcms",
     "keywords": ["atk4"],
-    "license": "AGPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "Romans Malinovskis",
