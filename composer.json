@@ -17,7 +17,7 @@
         "reference": "origin/master"
     },
     "require": {
-        "erusev/parsedown": "dev-master",
+        "erusev/parsedown-extra": "*",
         "php": ">=5.3"
     },
     "autoload": {
