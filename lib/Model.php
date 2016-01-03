@@ -13,9 +13,11 @@ class Model extends \Model {
         $this->addHook('afterLoad',function($m){
             if(is_null($m['rendered'])) {
                 $markdown = $m['data'];
-                $m->hook('prepareTemplate',array(&$markdown));
+                if(!$m->hook('prepareTemplate',array(&$markdown))){
+                    $markdown = $this->prepareTemplate($markdown);
+                }
 
-                $m['rendered'] = \Parsedown::instance()->parse($markdown);
+                $m['rendered'] = \ParsedownExtra::instance()->parse($markdown);
                // $this->prepareTemplate());
             }
         });
@@ -25,7 +27,15 @@ class Model extends \Model {
      * before it will get converted into template.
      */
     function prepareTemplate($template){
-        //$template=str_replace('Design','',$template);
+        $template=preg_replace_callback('/^\!\[image]\(([^)]*)\)/m',function($x){
+            return '![image]('.$this->app->locateURL('public',$x[1]).')';
+
+        },$template);
+        $template=preg_replace_callback('/\{page\}([^\{)]*)\{\/\}/m',function($x){
+            return $this->app->url($x[1]);
+
+        },$template);
+//        $template=preg_replace('/^\!\[image\]\(([^)*])\)/','\1',$template);
 //![What is Agile Toolkit](what-is/what-is.png)
         return $template;
     }
