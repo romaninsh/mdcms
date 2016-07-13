@@ -17,8 +17,9 @@
         "reference": "origin/master"
     },
     "require": {
-        "erusev/parsedown-extra": "*",
-        "php": ">=5.3"
+        "atk4\/atk4":"^4.3",
+        "erusev\/parsedown": "~1.4",
+        "erusev\/parsedown-extra": "dev-master",
     },
     "autoload": {
         "psr-0": { "romaninsh\\mdcms": "lib" }
