@@ -7,6 +7,7 @@ class Model extends \Model {
         parent::init();
 
         $this->addField('name');
+        $this->addField('title');
         $this->addField('data')->caption('Markdown Template');
         $this->addField('rendered')->caption('HTML render cache');
 
@@ -18,6 +19,14 @@ class Model extends \Model {
                 }
 
                 $m['rendered'] = \ParsedownExtra::instance()->parse($markdown);
+               // $this->prepareTemplate());
+            }
+            if(is_null($m['title'])) {
+                $x=null;
+                preg_match('/^# (.*)$/m',$m['data'],$x);
+                $m['title']=$x[1];
+                //v
+                //$m['rendered'] = \ParsedownExtra::instance()->parse($markdown);
                // $this->prepareTemplate());
             }
         });

@@ -27,10 +27,7 @@ class Controller extends \AbstractController {
             $this->target=$this->api->layout ?: $this->api;
         }
 
-        $page = $this->api->page_object = $this->target->add($this->page_class);
-        //$page->template->loadTemplateFromString($content['rendered']);
-
-//        throw $this->exception('','Exception_StopInit');
+        $page = $this->api->page_object = $this->target->add($this->page_class, ['title'=>$content['title']]);
     }
 
 
