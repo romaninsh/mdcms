@@ -19,7 +19,7 @@
     "require": {
         "atk4\/atk4":"^4.3",
         "erusev\/parsedown": "~1.4",
-        "erusev\/parsedown-extra": "dev-master",
+        "erusev\/parsedown-extra": "dev-master"
     },
     "autoload": {
         "psr-0": { "romaninsh\\mdcms": "lib" }
